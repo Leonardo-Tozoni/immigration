@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import bgUrl from '../assets/logo.svg'
+import bgUrl from '../assets/logo.png'
 import { useAuth } from '../context/AuthContext'
 import styles from './Login.module.css'
 

@@ -1,0 +1,88 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 32px 20px;
+  background: linear-gradient(135deg, #c60b1e 0%, #8b0000 100%);
+  border-radius: 20px;
+}
+
+.route {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.city {
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.5px;
+}
+
+.arrow {
+  font-size: 20px;
+}
+
+.timer {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 56px;
+}
+
+.number {
+  font-size: 36px;
+  font-weight: 800;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sep {
+  font-size: 28px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 2px;
+  user-select: none;
+}
+
+.dateLabel {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+}
+
+.noDate {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+  text-align: center;
+}
+
+@media (max-width: 360px) {
+  .number {
+    font-size: 28px;
+  }
+
+  .unit {
+    min-width: 44px;
+  }
+}

@@ -1,37 +1,52 @@
-import { useAuth } from '../context/AuthContext'
-import logoUrl from '../assets/logo.svg'
+import Countdown from '../components/Countdown'
+import { MENU_ITEMS } from '../context/NavContext'
+import { useNav } from '../context/NavContext'
 import styles from './Home.module.css'
 
-const DISPLAY_NAME = { leo: 'Leo', duda: 'Duda' }
-
 export default function Home() {
-  const { user, logout } = useAuth()
+  const { navigate } = useNav()
 
   return (
     <div className={styles.wrapper}>
-      <header className={styles.header}>
-        <div className={styles.headerLeft}>
-          <img src={logoUrl} alt="Espanha" className={styles.logo} />
-          <span className={styles.appName}>Inmigración</span>
-        </div>
-        <div className={styles.headerRight}>
-          <span className={styles.greeting}>Olá, {DISPLAY_NAME[user]}!</span>
-          <button className={styles.logoutBtn} onClick={logout}>Sair</button>
-        </div>
-      </header>
+      <section className={styles.countdown}>
+        <h2 className={styles.countdownTitle}>Contagem regressiva</h2>
+        <Countdown />
+      </section>
 
-      <main className={styles.main}>
-        <div className={styles.hero}>
-          <h1 className={styles.heroTitle}>Nossa jornada rumo à Espanha 🇪🇸</h1>
-          <p className={styles.heroText}>Em breve você terá aqui o passo a passo completo da nossa imigração, prazos e tarefas organizadas para Leo e Duda.</p>
+      <section className={styles.about}>
+        <h2 className={styles.sectionTitle}>Sobre nós</h2>
+        <div className={styles.aboutCard}>
+          <p className={styles.aboutText}>
+            Somos <strong>Leo e Duda</strong>, um casal brasileiro com um sonho em comum:
+            construir uma nova vida na Espanha. Esta página é o nosso diário de planejamento —
+            cada decisão tomada, cada passo dado rumo à nossa aventura ibérica.
+          </p>
+          <div className={styles.people}>
+            <div className={styles.person}>
+              <span className={styles.personAvatar}>👨</span>
+              <span className={styles.personName}>Leo</span>
+            </div>
+            <span className={styles.heart}>❤️</span>
+            <div className={styles.person}>
+              <span className={styles.personAvatar}>👩</span>
+              <span className={styles.personName}>Duda</span>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div className={styles.comingSoon}>
-          <div className={styles.comingSoonIcon}>🏗️</div>
-          <h2>Em construção</h2>
-          <p>O painel com tarefas e prazos está a caminho!</p>
+      <section className={styles.decisions}>
+        <h2 className={styles.sectionTitle}>Nossas decisões</h2>
+        <div className={styles.decisionGrid}>
+          {MENU_ITEMS.map((item) => (
+            <button key={item.id} className={styles.decisionCard} onClick={() => navigate(item.id)}>
+              <span className={styles.decisionIcon}>{item.icon}</span>
+              <span className={styles.decisionLabel}>{item.label}</span>
+              <span className={styles.decisionStatus}>A definir</span>
+            </button>
+          ))}
         </div>
-      </main>
+      </section>
     </div>
   )
 }

@@ -1,0 +1,39 @@
+.wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 60px 32px;
+  text-align: center;
+}
+
+.icon {
+  font-size: 64px;
+  line-height: 1;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.desc {
+  font-size: 15px;
+  color: #888;
+  max-width: 280px;
+  line-height: 1.6;
+}
+
+.badge {
+  margin-top: 8px;
+  padding: 6px 20px;
+  background: #fff3f3;
+  color: #c60b1e;
+  border: 1px solid #fca5a5;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}

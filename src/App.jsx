@@ -1,16 +1,19 @@
 import { AuthProvider, useAuth } from './context/AuthContext'
+import { NavProvider } from './context/NavContext'
+import Layout from './components/Layout'
 import Login from './pages/Login'
-import Home from './pages/Home'
 
 function AppContent() {
   const { user } = useAuth()
-  return user ? <Home /> : <Login />
+  return user ? <Layout /> : <Login />
 }
 
 export default function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <NavProvider>
+        <AppContent />
+      </NavProvider>
     </AuthProvider>
   )
 }

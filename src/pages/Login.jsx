@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import bgUrl from '../assets/logo.svg'
 import { useAuth } from '../context/AuthContext'
-import logoUrl from '../assets/logo.svg'
 import styles from './Login.module.css'
 
 export default function Login() {
@@ -14,21 +14,18 @@ export default function Login() {
     e.preventDefault()
     setError('')
     setLoading(true)
-
     await new Promise((r) => setTimeout(r, 400))
-
     const ok = login(username, password)
-    if (!ok) {
-      setError('Usuário ou senha incorretos.')
-    }
+    if (!ok) setError('Usuário ou senha incorretos.')
     setLoading(false)
   }
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.card}>
+    <div className={styles.wrapper} style={{ backgroundImage: `url(${bgUrl})` }}>
+      <div className={styles.overlay} />
+
+      <div className={styles.content}>
         <div className={styles.header}>
-          <img src={logoUrl} alt="Bandeira da Espanha" className={styles.logo} />
           <h1 className={styles.title}>Inmigración</h1>
           <p className={styles.subtitle}>Nossa jornada rumo à Espanha 🇪🇸</p>
         </div>

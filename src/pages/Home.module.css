@@ -62,7 +62,8 @@
 }
 
 .personAvatar {
-  font-size: 36px;
+  font-size: 28px;
+  color: var(--color-red);
   background: #fef2f2;
   border-radius: 50%;
   width: 56px;
@@ -81,6 +82,8 @@
 .heart {
   font-size: 24px;
   margin-top: -8px;
+  display: flex;
+  color: var(--color-red);
 }
 
 .decisions {
@@ -114,6 +117,8 @@
 
 .decisionIcon {
   font-size: 28px;
+  display: flex;
+  color: var(--color-red);
 }
 
 .decisionLabel {

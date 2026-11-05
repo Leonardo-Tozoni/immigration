@@ -23,6 +23,8 @@
 
 .arrow {
   font-size: 20px;
+  display: flex;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .timer {
@@ -67,14 +69,20 @@
 .dateLabel {
   font-size: 13px;
   color: rgba(255, 255, 255, 0.8);
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .noDate {
   font-size: 13px;
   color: rgba(255, 255, 255, 0.5);
   font-style: italic;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 @media (max-width: 360px) {

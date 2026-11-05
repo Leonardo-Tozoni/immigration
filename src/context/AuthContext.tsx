@@ -1,18 +1,25 @@
 import { createContext, useContext, useState } from 'react'
+import type { ReactNode } from 'react'
 
-const USERS = {
+const USERS: Record<string, string> = {
   leo: 'imigrar2027@',
   duda: 'imigrar2027@',
 }
 
-const AuthContext = createContext(null)
+interface AuthContextValue {
+  user: string | null
+  login: (username: string, password: string) => boolean
+  logout: () => void
+}
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
+const AuthContext = createContext<AuthContextValue | null>(null)
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<string | null>(() => {
     return sessionStorage.getItem('inmigracion_user') || null
   })
 
-  function login(username, password) {
+  function login(username: string, password: string) {
     const normalized = username.toLowerCase().trim()
     if (USERS[normalized] && USERS[normalized] === password) {
       setUser(normalized)
@@ -35,5 +42,7 @@ export function AuthProvider({ children }) {
 }
 
 export function useAuth() {
-  return useContext(AuthContext)
+  const context = useContext(AuthContext)
+  if (!context) throw new Error('useAuth must be used within AuthProvider')
+  return context
 }

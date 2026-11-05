@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
+import { CalendarDays, Plane } from 'lucide-react'
 import styles from './Countdown.module.css'
 
-function calcTimeLeft(isoDate) {
+function calcTimeLeft(isoDate: string | null) {
   if (!isoDate) return null
-  const diff = new Date(isoDate) - Date.now()
+  const diff = new Date(isoDate).getTime() - Date.now()
   if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 }
   return {
     days:    Math.floor(diff / 86400000),
@@ -13,7 +14,7 @@ function calcTimeLeft(isoDate) {
   }
 }
 
-function pad(n) {
+function pad(n: number) {
   return String(n).padStart(2, '0')
 }
 
@@ -32,14 +33,13 @@ export default function Countdown() {
     return () => clearInterval(id)
   }, [config.date])
 
-  const hasDate = !!config.date
   const t = timeLeft ?? { days: 0, hours: 0, minutes: 0, seconds: 0 }
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.route}>
         <span className={styles.city}>{config.from ?? 'Brasil'}</span>
-        <span className={styles.arrow}>✈️</span>
+        <span className={styles.arrow}><Plane size="1em" /></span>
         <span className={styles.city}>{config.to ?? 'Espanha'}</span>
       </div>
 
@@ -65,12 +65,12 @@ export default function Countdown() {
         </div>
       </div>
 
-      {hasDate ? (
+      {config.date ? (
         <p className={styles.dateLabel}>
-          📅 {new Date(config.date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}
+          <CalendarDays size="1.2em" /> {new Date(config.date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}
         </p>
       ) : (
-        <p className={styles.noDate}>📅 Data de partida a definir</p>
+        <p className={styles.noDate}><CalendarDays size="1.2em" /> Data de partida a definir</p>
       )}
     </div>
   )

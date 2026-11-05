@@ -1,13 +1,21 @@
 import { useEffect } from 'react'
+import { House, LogOut, X } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useNav, MENU_ITEMS } from '../context/NavContext'
+import type { PageId } from '../context/NavContext'
 import styles from './HamburgerMenu.module.css'
 
-const DISPLAY_NAME = { leo: 'Leo', duda: 'Duda' }
+const DISPLAY_NAME: Record<string, string> = { leo: 'Leo', duda: 'Duda' }
 
-export default function HamburgerMenu({ open, onClose }) {
+interface HamburgerMenuProps {
+  open: boolean
+  onClose: () => void
+}
+
+export default function HamburgerMenu({ open, onClose }: HamburgerMenuProps) {
   const { user, logout } = useAuth()
   const { page, navigate } = useNav()
+  const displayName = user ? DISPLAY_NAME[user] : undefined
 
   useEffect(() => {
     if (open) document.body.style.overflow = 'hidden'
@@ -15,7 +23,7 @@ export default function HamburgerMenu({ open, onClose }) {
     return () => { document.body.style.overflow = '' }
   }, [open])
 
-  function goTo(id) {
+  function goTo(id: PageId) {
     navigate(id)
     onClose()
   }
@@ -34,13 +42,13 @@ export default function HamburgerMenu({ open, onClose }) {
       <nav className={`${styles.drawer} ${open ? styles.drawerOpen : ''}`}>
         <div className={styles.drawerHeader}>
           <div className={styles.userInfo}>
-            <div className={styles.avatar}>{DISPLAY_NAME[user]?.[0] ?? '?'}</div>
+            <div className={styles.avatar}>{displayName?.[0] ?? '?'}</div>
             <div>
-              <p className={styles.userName}>Olá, {DISPLAY_NAME[user]}!</p>
-              <p className={styles.userSub}>Espanha nos espera 🇪🇸</p>
+              <p className={styles.userName}>Olá, {displayName}!</p>
+              <p className={styles.userSub}>Espanha nos espera</p>
             </div>
           </div>
-          <button className={styles.closeBtn} onClick={onClose} aria-label="Fechar menu">✕</button>
+          <button className={styles.closeBtn} onClick={onClose} aria-label="Fechar menu"><X size="1.25em" /></button>
         </div>
 
         <div className={styles.divider} />
@@ -51,7 +59,7 @@ export default function HamburgerMenu({ open, onClose }) {
               className={`${styles.menuItem} ${page === 'home' ? styles.menuItemActive : ''}`}
               onClick={() => goTo('home')}
             >
-              <span className={styles.menuIcon}>🏡</span>
+              <span className={styles.menuIcon}><House size="1em" /></span>
               <span className={styles.menuLabel}>Início</span>
             </button>
           </li>
@@ -64,7 +72,7 @@ export default function HamburgerMenu({ open, onClose }) {
                 className={`${styles.menuItem} ${page === item.id ? styles.menuItemActive : ''}`}
                 onClick={() => goTo(item.id)}
               >
-                <span className={styles.menuIcon}>{item.icon}</span>
+                <span className={styles.menuIcon}><item.icon size="1em" /></span>
                 <div className={styles.menuText}>
                   <span className={styles.menuLabel}>{item.label}</span>
                   <span className={styles.menuDesc}>{item.desc}</span>
@@ -77,7 +85,7 @@ export default function HamburgerMenu({ open, onClose }) {
         <div className={styles.drawerFooter}>
           <div className={styles.divider} />
           <button className={styles.logoutBtn} onClick={handleLogout}>
-            <span>🚪</span> Sair
+            <LogOut size="1.2em" /> Sair
           </button>
         </div>
       </nav>

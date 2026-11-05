@@ -40,8 +40,7 @@
 .backArrow {
   font-size: 28px;
   color: rgba(255, 255, 255, 0.8);
-  line-height: 1;
-  margin-top: -2px;
+  display: flex;
 }
 
 .pageTitle {

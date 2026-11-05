@@ -1,3 +1,4 @@
+import { Heart, UserRound } from 'lucide-react'
 import Countdown from '../components/Countdown'
 import { MENU_ITEMS } from '../context/NavContext'
 import { useNav } from '../context/NavContext'
@@ -23,12 +24,12 @@ export default function Home() {
           </p>
           <div className={styles.people}>
             <div className={styles.person}>
-              <span className={styles.personAvatar}>👨</span>
+              <span className={styles.personAvatar}><UserRound size="1em" /></span>
               <span className={styles.personName}>Leo</span>
             </div>
-            <span className={styles.heart}>❤️</span>
+            <span className={styles.heart}><Heart size="1em" fill="currentColor" /></span>
             <div className={styles.person}>
-              <span className={styles.personAvatar}>👩</span>
+              <span className={styles.personAvatar}><UserRound size="1em" /></span>
               <span className={styles.personName}>Duda</span>
             </div>
           </div>
@@ -40,7 +41,7 @@ export default function Home() {
         <div className={styles.decisionGrid}>
           {MENU_ITEMS.map((item) => (
             <button key={item.id} className={styles.decisionCard} onClick={() => navigate(item.id)}>
-              <span className={styles.decisionIcon}>{item.icon}</span>
+              <span className={styles.decisionIcon}><item.icon size="1em" /></span>
               <span className={styles.decisionLabel}>{item.label}</span>
               <span className={styles.decisionStatus}>A definir</span>
             </button>

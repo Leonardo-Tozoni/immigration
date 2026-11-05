@@ -12,6 +12,8 @@
 .icon {
   font-size: 64px;
   line-height: 1;
+  display: flex;
+  color: var(--color-red);
 }
 
 .title {

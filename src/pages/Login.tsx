@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import type { SubmitEvent } from 'react'
 import bgUrl from '../assets/logo.png'
 import { useAuth } from '../context/AuthContext'
 import styles from './Login.module.css'
@@ -10,7 +11,7 @@ export default function Login() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault()
     setError('')
     setLoading(true)
@@ -27,7 +28,7 @@ export default function Login() {
       <div className={styles.content}>
         <div className={styles.header}>
           <h1 className={styles.title}>Inmigración</h1>
-          <p className={styles.subtitle}>Nossa jornada rumo à Espanha 🇪🇸</p>
+          <p className={styles.subtitle}>Nossa jornada rumo à Espanha</p>
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit} noValidate>

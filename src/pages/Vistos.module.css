@@ -1,0 +1,119 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px 32px;
+  gap: 28px;
+}
+
+.intro {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #444;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  text-align: left;
+  transition: transform 0.15s;
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 2px;
+}
+
+.cardText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cardName {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #1a1a1a;
+}
+
+.cardSummary {
+  font-size: 13px;
+  line-height: 1.45;
+  color: #666;
+}
+
+.cardChevron {
+  flex-shrink: 0;
+  display: flex;
+  font-size: 20px;
+  color: var(--color-red);
+}
+
+.note {
+  display: flex;
+  gap: 10px;
+  padding: 14px;
+  background: #fef2f2;
+  border-radius: 14px;
+}
+
+.noteIcon {
+  flex-shrink: 0;
+  display: flex;
+  font-size: 18px;
+  color: var(--color-red);
+}
+
+.noteText {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.noteLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style: none;
+}
+
+.noteLinks a {
+  color: var(--color-red);
+  text-decoration: underline;
+}

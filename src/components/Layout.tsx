@@ -1,19 +1,22 @@
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import type { ReactElement } from 'react'
-import { Building2, CalendarDays, ChevronLeft, ClipboardList, Euro, KeyRound, Plane } from 'lucide-react'
+import { CalendarDays, ChevronLeft, Euro, KeyRound, Plane } from 'lucide-react'
 import { useNav, MENU_ITEMS } from '../context/NavContext'
 import type { PageId } from '../context/NavContext'
 import HamburgerMenu from './HamburgerMenu'
 import Home from '../pages/Home'
 import ComingSoon from '../pages/ComingSoon'
+import Documentos from '../pages/Documentos'
 import Vistos from '../pages/Vistos'
 import styles from './Layout.module.css'
+
+const Cidade = lazy(() => import('../pages/Cidade'))
 
 const PAGE_MAP: Record<PageId, () => ReactElement> = {
   home: () => <Home />,
   vistos:     () => <Vistos />,
-  documentos: () => <ComingSoon icon={ClipboardList} title="Documentação"    desc="Documentos necessários para a imigração" />,
-  cidade:     () => <ComingSoon icon={Building2}     title="Nossa Cidade"    desc="Escolha da cidade onde vamos viver" />,
+  documentos: () => <Documentos />,
+  cidade:     () => <Suspense fallback={null}><Cidade /></Suspense>,
   financas:   () => <ComingSoon icon={Euro}          title="Finanças"        desc="Planejamento financeiro da mudança" />,
   moradia:    () => <ComingSoon icon={KeyRound}      title="Moradia"         desc="Busca de moradia na Espanha" />,
   passagens:  () => <ComingSoon icon={Plane}         title="Passagens"       desc="Compra das passagens de ida" />,

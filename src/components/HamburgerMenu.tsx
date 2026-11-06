@@ -34,61 +34,55 @@ export default function HamburgerMenu({ open, onClose }: HamburgerMenuProps) {
   }
 
   return (
-    <>
-      <div
-        className={`${styles.backdrop} ${open ? styles.backdropOpen : ''}`}
-        onClick={onClose}
-      />
-      <nav className={`${styles.drawer} ${open ? styles.drawerOpen : ''}`}>
-        <div className={styles.drawerHeader}>
-          <div className={styles.userInfo}>
-            <div className={styles.avatar}>{displayName?.[0] ?? '?'}</div>
-            <div>
-              <p className={styles.userName}>Olá, {displayName}!</p>
-              <p className={styles.userSub}>Espanha nos espera</p>
-            </div>
+    <nav className={`${styles.drawer} ${open ? styles.drawerOpen : ''}`}>
+      <div className={styles.drawerHeader}>
+        <div className={styles.userInfo}>
+          <div className={styles.avatar}>{displayName?.[0] ?? '?'}</div>
+          <div>
+            <p className={styles.userName}>Olá, {displayName}!</p>
+            <p className={styles.userSub}>Espanha nos espera</p>
           </div>
-          <button className={styles.closeBtn} onClick={onClose} aria-label="Fechar menu"><X size="1.25em" /></button>
         </div>
+        <button className={styles.closeBtn} onClick={onClose} aria-label="Fechar menu"><X size="1.25em" /></button>
+      </div>
 
-        <div className={styles.divider} />
+      <div className={styles.divider} />
 
-        <ul className={styles.menuList}>
-          <li>
+      <ul className={styles.menuList}>
+        <li>
+          <button
+            className={`${styles.menuItem} ${page === 'home' ? styles.menuItemActive : ''}`}
+            onClick={() => goTo('home')}
+          >
+            <span className={styles.menuIcon}><House size="1em" /></span>
+            <span className={styles.menuLabel}>Início</span>
+          </button>
+        </li>
+
+        <p className={styles.sectionTitle}>Planejamento</p>
+
+        {MENU_ITEMS.map((item) => (
+          <li key={item.id}>
             <button
-              className={`${styles.menuItem} ${page === 'home' ? styles.menuItemActive : ''}`}
-              onClick={() => goTo('home')}
+              className={`${styles.menuItem} ${page === item.id ? styles.menuItemActive : ''}`}
+              onClick={() => goTo(item.id)}
             >
-              <span className={styles.menuIcon}><House size="1em" /></span>
-              <span className={styles.menuLabel}>Início</span>
+              <span className={styles.menuIcon}><item.icon size="1em" /></span>
+              <div className={styles.menuText}>
+                <span className={styles.menuLabel}>{item.label}</span>
+                <span className={styles.menuDesc}>{item.desc}</span>
+              </div>
             </button>
           </li>
+        ))}
+      </ul>
 
-          <p className={styles.sectionTitle}>Planejamento</p>
-
-          {MENU_ITEMS.map((item) => (
-            <li key={item.id}>
-              <button
-                className={`${styles.menuItem} ${page === item.id ? styles.menuItemActive : ''}`}
-                onClick={() => goTo(item.id)}
-              >
-                <span className={styles.menuIcon}><item.icon size="1em" /></span>
-                <div className={styles.menuText}>
-                  <span className={styles.menuLabel}>{item.label}</span>
-                  <span className={styles.menuDesc}>{item.desc}</span>
-                </div>
-              </button>
-            </li>
-          ))}
-        </ul>
-
-        <div className={styles.drawerFooter}>
-          <div className={styles.divider} />
-          <button className={styles.logoutBtn} onClick={handleLogout}>
-            <LogOut size="1.2em" /> Sair
-          </button>
-        </div>
-      </nav>
-    </>
+      <div className={styles.drawerFooter}>
+        <div className={styles.divider} />
+        <button className={styles.logoutBtn} onClick={handleLogout}>
+          <LogOut size="1.2em" /> Sair
+        </button>
+      </div>
+    </nav>
   )
 }

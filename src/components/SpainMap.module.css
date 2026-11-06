@@ -1,0 +1,9 @@
+/* isolation mantém os z-index do Leaflet abaixo do header e do menu. */
+.map {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 46dvh;
+  min-height: 300px;
+  background: #dfe9ef;
+}

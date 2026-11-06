@@ -1,24 +1,9 @@
-.backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 100;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.backdropOpen {
-  opacity: 1;
-  pointer-events: all;
-}
-
 .drawer {
   position: fixed;
   top: 0;
   right: 0;
   height: 100dvh;
-  width: min(320px, 85vw);
+  width: 100%;
   background: #fff;
   z-index: 101;
   display: flex;

@@ -15,6 +15,7 @@ import {
   X,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import { usePlan } from '../context/PlanContext'
 import { VISAS_CHECKED_AT } from '../data/visas'
 import type { Visa } from '../data/visas'
 import type { StudyOption, StudyPath, VisaFit } from '../data/techStudies'
@@ -119,6 +120,27 @@ function StudyPathSection({ path }: { path: StudyPath }) {
   )
 }
 
+function VisaChoice({ visa }: { visa: Visa }) {
+  const { chosenVisa, chooseVisa } = usePlan()
+
+  return (
+    <section className={styles.choice}>
+      {chosenVisa?.id === visa.id ? (
+        <>
+          <p className={styles.choiceDone}><Check size="1em" /> Este é o nosso caminho</p>
+          <button className={styles.choiceClear} onClick={() => chooseVisa(null)}>
+            Desfazer escolha
+          </button>
+        </>
+      ) : (
+        <button className={styles.choiceBtn} onClick={() => chooseVisa(visa.id)}>
+          Escolher este caminho
+        </button>
+      )}
+    </section>
+  )
+}
+
 export default function VisaDetail({ visa }: { visa: Visa }) {
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -137,6 +159,8 @@ export default function VisaDetail({ visa }: { visa: Visa }) {
           <p>{visa.notice}</p>
         </div>
       )}
+
+      <VisaChoice visa={visa} />
 
       <Section icon={UserCheck} title="Quem pode solicitar">
         <BulletList items={visa.eligibility} />

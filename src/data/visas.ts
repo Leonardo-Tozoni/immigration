@@ -3,13 +3,15 @@ import type { StudyPath } from './techStudies'
 
 export const VISAS_CHECKED_AT = '05/11/2026'
 
-export type VisaCategory = 'sem-trabalho' | 'trabalho' | 'estudos' | 'familia'
+export type VisaCategory = 'emprego' | 'turista' | 'estudos' | 'sem-emprego' | 'familia'
 
-export const VISA_CATEGORIES: { id: VisaCategory; label: string }[] = [
-  { id: 'sem-trabalho', label: 'Sem trabalho na Espanha' },
-  { id: 'trabalho', label: 'Trabalho e negócios' },
-  { id: 'estudos', label: 'Estudos' },
-  { id: 'familia', label: 'Família' },
+/** Formas de ir para a Espanha. Cada visto pertence a uma forma. */
+export const VISA_CATEGORIES: { id: VisaCategory; label: string; desc: string }[] = [
+  { id: 'emprego', label: 'Conseguir emprego antes e ir', desc: 'Uma empresa na Espanha contrata e faz o trâmite da autorização.' },
+  { id: 'turista', label: 'Ir como turista e aplicar lá', desc: 'Entrar sem visto e pedir a autorização já na Espanha.' },
+  { id: 'estudos', label: 'Ir estudar com visto do Brasil', desc: 'Pedir o visto de estudos no consulado antes de viajar.' },
+  { id: 'sem-emprego', label: 'Ir com visto, sem empregador espanhol', desc: 'Trabalho remoto, negócio próprio, renda ou busca de emprego.' },
+  { id: 'familia', label: 'Ir por vínculo familiar', desc: 'Familiar de residente legal, de espanhol ou de cidadão da UE.' },
 ]
 
 export interface VisaSource {
@@ -19,7 +21,7 @@ export interface VisaSource {
 
 export interface Visa {
   id: string
-  /** Nome oficial, como publicado pelo consulado ou pela lei espanhola. */
+  /** Nome oficial, como publicado pelo consulado ou pela lei espanhola. Rotas de entrada como turista usam nome descritivo. */
   name: string
   category: VisaCategory
   summary: string
@@ -55,6 +57,8 @@ const SOURCE_REGLAMENTO: VisaSource = { label: 'BOE — Real Decreto 1155/2024 (
 const SOURCE_LEY_14_2013: VisaSource = { label: 'BOE — Ley 14/2013', url: BOE_LEY_14_2013 }
 const SOURCE_NACIONALIDADE: VisaSource = { label: 'BOE — Código Civil, art. 22', url: BOE_CODIGO_CIVIL }
 const SOURCE_IPREM: VisaSource = { label: 'Ministério de Exteriores — tabela IPREM 2026', url: IPREM_2026 }
+const SOURCE_LEY_EXTRANJERIA: VisaSource = { label: 'BOE — Ley Orgánica 4/2000 (Ley de Extranjería)', url: 'https://www.boe.es/buscar/act.php?id=BOE-A-2000-544' }
+const SOURCE_EES: VisaSource = { label: 'Comissão Europeia — Entry/Exit System (EES)', url: 'https://home-affairs.ec.europa.eu/policies/schengen/smart-borders/entry-exit-system_en' }
 
 const PASSPORT = 'Passaporte com validade superior a 1 ano, 2 páginas em branco e emitido há no máximo 10 anos.'
 const CRIMINAL_RECORD_5Y = 'Antecedentes criminais dos países de residência nos últimos 5 anos, apostilados.'
@@ -82,7 +86,7 @@ export const VISAS: Visa[] = [
   {
     id: 'residencia-no-lucrativa',
     name: 'Visado de residencia no lucrativa',
-    category: 'sem-trabalho',
+    category: 'sem-emprego',
     summary: 'Para morar na Espanha sem trabalhar, vivendo de renda ou patrimônio próprios.',
     eligibility: [
       'Quem tem meios suficientes para viver na Espanha sem exercer atividade profissional.',
@@ -140,7 +144,7 @@ export const VISAS: Visa[] = [
   {
     id: 'teletrabajo',
     name: 'Visado de residencia para teletrabajo (nómada digital)',
-    category: 'trabalho',
+    category: 'sem-emprego',
     summary: 'Para morar na Espanha trabalhando remotamente para empresas ou clientes de fora do país.',
     eligibility: [
       'Empregados que trabalham remotamente apenas para empresas fora da Espanha.',
@@ -201,7 +205,7 @@ export const VISAS: Visa[] = [
   {
     id: 'trabajo-cuenta-ajena',
     name: 'Visado de trabajo por cuenta ajena',
-    category: 'trabalho',
+    category: 'emprego',
     summary: 'Para trabalhar na Espanha com contrato de um empregador espanhol.',
     eligibility: [
       'Maiores de 16 anos com oferta de empregador na Espanha.',
@@ -256,7 +260,7 @@ export const VISAS: Visa[] = [
   {
     id: 'trabajador-altamente-cualificado',
     name: 'Visado para trabajador altamente cualificado y para traslado intraempresarial',
-    category: 'trabalho',
+    category: 'emprego',
     summary: 'Para profissionais qualificados contratados na Espanha, incluindo a Tarjeta azul-UE, e transferências dentro de um mesmo grupo.',
     notice: 'O valor do salário mínimo em euros é publicado pela Unidad de Grandes Empresas (UGE). Não foi possível confirmar o valor atual porque o site bloqueou o acesso automático.',
     eligibility: [
@@ -313,7 +317,7 @@ export const VISAS: Visa[] = [
   {
     id: 'trabajo-cuenta-propia',
     name: 'Visado de trabajo por cuenta propia',
-    category: 'trabalho',
+    category: 'sem-emprego',
     summary: 'Para abrir negócio ou trabalhar como autônomo na Espanha.',
     eligibility: [
       'Maiores de 18 anos que vão exercer atividade por conta própria.',
@@ -368,7 +372,7 @@ export const VISAS: Visa[] = [
   {
     id: 'emprendedor',
     name: 'Visado para emprendedor',
-    category: 'trabalho',
+    category: 'sem-emprego',
     summary: 'Para quem vai criar na Espanha um negócio inovador ou de especial interesse econômico.',
     eligibility: [
       'Quem desenvolve atividade inovadora ou de especial interesse econômico para a Espanha.',
@@ -422,7 +426,7 @@ export const VISAS: Visa[] = [
   {
     id: 'busqueda-de-empleo',
     name: 'Visado para la búsqueda de empleo',
-    category: 'trabalho',
+    category: 'sem-emprego',
     summary: 'Para procurar emprego na Espanha por 12 meses, em vagas limitadas abertas pelo governo espanhol.',
     notice: 'Este visto não aparece na lista do consulado em São Paulo. Ele depende de quotas definidas em ordem ministerial, então confirme se há vagas abertas para o Brasil.',
     eligibility: [
@@ -695,6 +699,115 @@ export const VISAS: Visa[] = [
     sources: [
       { label: 'Consulado em São Paulo — familiares de cidadãos UE', url: `${SAO_PAULO_VISAS}Visados+de+familiares+de+ciudadanos+UE+y+de+beneficiarios+Acuerdo+de+Retirada+UE-Reino+Unido` },
       { label: 'BOE — Real Decreto 240/2007', url: BOE_RD_240_2007 },
+    ],
+  },
+  {
+    id: 'turista-estudios',
+    name: 'Entrar como turista e pedir a estancia por estudios na Espanha',
+    category: 'turista',
+    summary: 'Entrar sem visto, dentro dos 90 dias legais, e pedir a autorização de estudos já na Espanha, sem passar pelo consulado.',
+    notice: 'Prazo apertado: o pedido precisa ser feito pelo menos 2 meses antes do fim da estada legal (art. 54.3), ou seja, em cerca de 30 dias após a entrada, e também pelo menos 2 meses antes do início do curso (art. 54.1). Guias de advogados citam prazos diferentes, como 2 meses desde a entrada, mas essa regra não está no texto do BOE atualizado em 22/09/2026. Confirme com a Oficina de Extranjería antes de viajar.',
+    eligibility: [
+      'Maiores de idade que estejam em situação regular na Espanha.',
+      'Só para educação superior em tempo integral (art. 52.1.a) ou formação em especialidades de saúde (art. 58). Curso de idiomas ou FP de Grado Medio não pode ser pedido assim por quem está como turista.',
+      'FP de Grado Superior é educação superior na Espanha (LOE, art. 3.5), mas a aplicação a esta rota é nossa leitura: confirme com a Oficina de Extranjería.',
+    ],
+    requirements: [
+      'Admissão em centro reconhecido e matrícula paga. Tempo integral significa pelo menos 90% dos créditos ou do programa.',
+      'Fora da universidade, o curso precisa ser pelo menos 50% presencial.',
+      'Meios econômicos em 2026: €600 por mês (100% do IPREM), mais €450 (75%) para o primeiro familiar e €300 (50%) para cada adicional.',
+      'Seguro de saúde válido na Espanha.',
+      'Antecedentes criminais, se a estada passar de 6 meses, e atestado médico. Providencie e apostile antes de sair do Brasil.',
+      'Taxa da autorização paga. Pedido feito na província onde o curso acontece.',
+      'Na fronteira, é preciso justificar o motivo e as condições da estada e ter meios suficientes (Ley Orgánica 4/2000, art. 25).',
+    ],
+    pros: [
+      'Evita o trâmite no consulado e a retirada do visto no Brasil.',
+      'Situação sempre legal: o pedido prorroga a estada até a decisão (art. 54.3).',
+      'Em estudos superiores, permite trabalhar até 30 horas semanais, se compatível com os estudos.',
+      'Ao concluir, pode pedir residência e trabalho sem visto (art. 190), nos 2 meses antes ou 3 meses depois do fim da autorização.',
+    ],
+    cons: [
+      'Pouco tempo: cerca de 30 dias após a entrada para protocolar tudo.',
+      'Decisão em até 2 meses, e silêncio significa negativa. Com pedido eletrônico feito pela instituição, 15 dias, e silêncio também é negativa (art. 54.6).',
+      'Se negado, é preciso sair da Espanha ou a permanência passa a ser irregular.',
+      'Calendário rígido: o curso precisa começar pelo menos 2 meses depois do pedido, e a admissão precisa estar pronta antes.',
+      'Ter ou estar pedindo autorização de estudos impede pedir arraigo ao mesmo tempo (art. 126.h).',
+      'Tempo como estudante conta só 50% para a residência de longa duração-UE.',
+    ],
+    steps: [
+      'No Brasil, garanta a admissão em curso elegível e peça à escola confirmação por escrito de que serve para esta autorização.',
+      'Ainda no Brasil, reúna antecedentes criminais, atestado médico, seguro e comprovantes financeiros, com apostila e tradução quando necessário.',
+      'Entre na Espanha com o que a fronteira pede. Marque a data de entrada: os 90 dias começam nela.',
+      'Pague a matrícula e protocole o pedido em até cerca de 30 dias da entrada, na Oficina de Extranjería da província do curso, ou por meio eletrônico pela instituição.',
+      'Aguarde a decisão: o protocolo prorroga a situação legal até ela sair.',
+      'Com autorização favorável e estada acima de 6 meses, peça o TIE.',
+    ],
+    validity: [
+      'Autorização: duração oficial dos estudos superiores.',
+      'Prorrogação: até 2, pedidas nos 2 meses antes do vencimento.',
+      'Mudança para residência e trabalho: autorização de 1 ano (art. 190).',
+    ],
+    family: [
+      'Cônjuge ou parceiro, filhos menores e filhos maiores com deficiência a cargo podem pedir autorização própria se a do estudante tiver pelo menos 90 dias restantes (art. 56).',
+      'Familiares não podem trabalhar durante essa autorização.',
+    ],
+    sources: [SOURCE_REGLAMENTO, SOURCE_LEY_EXTRANJERIA, SOURCE_IPREM],
+  },
+  {
+    id: 'turista-arraigo',
+    name: 'Entrar como turista, ficar 2 anos irregular e pedir arraigo',
+    category: 'turista',
+    summary: 'Ficar além dos 90 dias sem autorização e, após 2 anos contínuos na Espanha, pedir residência excepcional por arraigo.',
+    notice: 'Atenção: ficar além dos 90 dias é infração grave, com multa de €501 a €10.000 ou expulsão, e proibição de entrada de até 5 anos. O arraigo não é garantido e as regras podem mudar durante a espera. Consulte um advogado de extranjería antes de decidir.',
+    eligibility: [
+      'Presença contínua na Espanha por pelo menos 2 anos antes do pedido (art. 126.b).',
+      'Sem antecedentes criminais na Espanha nem nos países onde morou nos 5 anos anteriores à entrada.',
+      'Sem autorização de estada ou residência, e sem pedido desse tipo em andamento (art. 126.h).',
+      'Não ser solicitante de proteção internacional, nem constar como inadmissível por acordos da Espanha.',
+      'Cumprir um dos tipos de arraigo listados em "Requisitos e documentos".',
+    ],
+    requirements: [
+      'Arraigo sociolaboral: contrato(s) de pelo menos 20 horas semanais, com salário mínimo ou de convênio proporcional. O empregador precisa cumprir os requisitos do art. 74.',
+      'Arraigo social: vínculo familiar com residente legal e meios de €600 por mês (100% do IPREM), ou avaliação do esforço de integração sem esse vínculo. Exige informe de integração da comunidade autônoma ou do município.',
+      'Arraigo socioformativo: matrícula em ensino secundário pós-obrigatório, FP de grau C ou formação do serviço público de emprego, com informe de integração. Universidade não consta na lista (art. 127.d).',
+      'Provas de permanência contínua por 2 anos. Confirme com advogado quais documentos são aceitos.',
+      'Antecedentes criminais dos países onde morou nos 5 anos anteriores à entrada, e taxa paga.',
+    ],
+    pros: [
+      'Não exige visto nem sair da Espanha para pedir.',
+      'Autorização permite trabalhar sem limite de região ou ocupação. No socioformativo, até 30 horas semanais.',
+      'No sociolaboral, a admissão do pedido já dá permissão provisória para viver e trabalhar, com inscrição na Seguridade Social em até 1 mês (art. 130.5).',
+    ],
+    cons: [
+      'Situação irregular por 2 anos: risco de multa de €501 a €10.000 ou expulsão, com proibição de entrada de até 5 anos (Ley Orgánica 4/2000, arts. 53.1.a, 55, 57 e 58).',
+      'Sem autorização, não é permitido trabalhar por 2 anos. A falta de autorização também impede receber seguro-desemprego (art. 36.5).',
+      'O Entry/Exit System (EES) substitui o carimbo e detecta automaticamente quem passou do prazo.',
+      'Sair da Espanha nesse período pode comprometer a presença contínua e a volta. Visita ao Brasil ou emergência familiar fica muito arriscada.',
+      'Arraigo não é garantido: se negado, a situação irregular continua.',
+      'Regras já mudaram em 2026 (RD 316/2026), e novos requisitos podem surgir antes dos 2 anos.',
+      'A regularização extraordinária de 2026 não serve: era para quem chegou antes de 1/1/2026, com pedido até 30/6/2026.',
+    ],
+    steps: [
+      'Antes de viajar, consulte um advogado de extranjería e veja como obter e apostilar antecedentes criminais do Brasil estando na Espanha.',
+      'Com 2 anos contínuos, defina o tipo de arraigo e reúna contrato, matrícula ou informe de integração.',
+      'Apresente o pedido pessoalmente na Espanha, sem visto. Correções podem ser pedidas com prazo de até 15 dias.',
+      'Com concessão, peça o TIE em até 1 mês.',
+    ],
+    validity: [
+      'Autorização: 1 ano (arraigo familiar: 5 anos).',
+      'Renovação: 1 ano, nos 2 meses antes do vencimento. Exige busca ativa de emprego; no socioformativo, também prova de progresso nos estudos.',
+    ],
+    family: [
+      'Cada pessoa precisa cumprir os requisitos. As fontes consultadas não preveem pedido conjunto.',
+      'Arraigo familiar não exige 2 anos, mas é para pai, mãe ou responsável de menor da UE, EEE ou Suíça, ou apoio a pessoa com deficiência dessas nacionalidades.',
+    ],
+    sources: [
+      SOURCE_REGLAMENTO,
+      SOURCE_LEY_EXTRANJERIA,
+      SOURCE_EES,
+      { label: 'La Moncloa — regularização extraordinária 2026', url: 'https://www.lamoncloa.gob.es/serviciosdeprensa/notasprensa/inclusion/Documents/2026/160426-preguntas-frecuentes-regularizacion-extraordinaria.pdf' },
+      SOURCE_IPREM,
     ],
   },
 ]

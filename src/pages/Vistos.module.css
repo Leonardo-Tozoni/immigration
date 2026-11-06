@@ -16,6 +16,10 @@
   flex-direction: column;
 }
 
+.section .intro {
+  margin-bottom: 12px;
+}
+
 .sectionTitle {
   font-size: 13px;
   font-weight: 700;
@@ -51,6 +55,11 @@
 .card:focus-visible {
   outline: 2px solid var(--color-red);
   outline-offset: 2px;
+}
+
+.cardChosen {
+  background: #fef2f2;
+  border: 2px solid var(--color-red);
 }
 
 .cardText {

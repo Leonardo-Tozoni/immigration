@@ -1,5 +1,6 @@
 import { AuthProvider, useAuth } from './context/AuthContext'
 import { NavProvider } from './context/NavContext'
+import { PlanProvider } from './context/PlanContext'
 import Layout from './components/Layout'
 import Login from './pages/Login'
 
@@ -12,7 +13,9 @@ export default function App() {
   return (
     <AuthProvider>
       <NavProvider>
-        <AppContent />
+        <PlanProvider>
+          <AppContent />
+        </PlanProvider>
       </NavProvider>
     </AuthProvider>
   )
